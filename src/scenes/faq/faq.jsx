@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Header from "../../components/Header";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -9,12 +9,12 @@ import { tokens } from "../../theme";
 const FAQ = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
+  const is650 = useMediaQuery("(max-width:650px)");
   const SingleAccordion = ({ accordionSummary, accordionDetails }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     return (
-      <Accordion sx={{backgroundColor:colors.primary[400]}} defaultExpanded>
+      <Accordion sx={{backgroundColor:colors.primary[400]}} defaultExpanded={is650 ? false : true}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{}}>
           <Typography color={colors.greenAccent[500]} fontSize="18px">
             {accordionSummary}

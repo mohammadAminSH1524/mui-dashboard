@@ -1,12 +1,13 @@
 import { ResponsiveBar } from "@nivo/bar";
 import { mockBarData, mockPieData } from "../data/mockData";
 import { tokens } from "../theme";
-import { useTheme } from "@mui/material";
+import { useMediaQuery, useTheme } from "@mui/material";
 import { ResponsivePie } from "@nivo/pie";
 
 const PieChart = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const is600 = useMediaQuery("(max-width:600px)");
   return (
     <ResponsivePie
       data={mockPieData}
@@ -41,10 +42,9 @@ const PieChart = () => {
           container: {
             color: colors.gray[100],
             backgroundColor:
-              theme.palette.mode === "dark" ? "black" : "#fcfcfc"
+              theme.palette.mode === "dark" ? "black" : "#fcfcfc",
           },
         },
-        
       }}
       margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
       innerRadius={0.5}
@@ -84,32 +84,36 @@ const PieChart = () => {
           spacing: 10,
         },
       ]}
-      
-      legends={[
-        {
-          anchor: "bottom",
-          direction: "row",
-          justify: false,
-          translateX: 0,
-          translateY: 56,
-          itemsSpacing: 0,
-          itemWidth: 100,
-          itemHeight: 18,
-          itemTextColor: "#999",
-          itemDirection: "left-to-right",
-          itemOpacity: 1,
-          symbolSize: 18,
-          symbolShape: "circle",
-          effects: [
-            {
-              on: "hover",
-              style: {
-                itemTextColor: "#000",
+      legends={
+        is600
+          ? []
+          : [
+              {
+                anchor: "bottom",
+                direction: "row",
+                justify: false,
+                translateX: 0,
+                translateY: 56,
+                itemsSpacing: 0,
+                itemWidth: 100,
+                itemHeight: 18,
+                itemTextColor: colors.gray[100],
+                itemDirection: "left-to-right",
+                itemOpacity: 1,
+                symbolSize: 18,
+                symbolShape: "circle",
+                effects: [
+                  {
+                    on: "hover",
+                    style: {
+                      itemTextColor:
+                        theme.palette.mode === "dark" ? "#fff" : "#000",
+                    },
+                  },
+                ],
               },
-            },
-          ],
-        },
-      ]}
+            ]
+      }
     />
   );
 };

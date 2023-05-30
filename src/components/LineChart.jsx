@@ -30,6 +30,7 @@ const LineChart = ({ isDashboard = false }) => {
             },
             text: {
               fill: colors.gray[100],
+               display:is750 ? "none" :"initial"
             },
           },
         },
